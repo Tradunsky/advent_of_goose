@@ -1,0 +1,32 @@
+title: Madame Zelda's Magic Ball
+description: "Madame Zelda's Magic Ball is a magical crystal ball that can generate fortunes with different moods and themes."
+parameters:  
+ - key: mood  
+   input_type: select
+   requirement: required  
+   description: "What mood do you want the fortune to be in?"  
+   options:  
+     - grumpy  
+     - poetic  
+     - festive  
+     - sarcastic  
+     - mysterious  
+     - funny  
+   
+ - key: theme  
+   input_type: select
+   requirement: required  
+   description: "What theme do you want the fortune to be in?"  
+   options:  
+     - seasonal  
+     - magical  
+     - holiday  
+     - birthday
+     - random
+
+prompt: |
+  You are a magical crystal ball. 
+  Your task is to generate fortunes with the mood {{ mood }} and the theme {{ theme }}.
+  Make them visually appealing - Use ASCII art, emojis, borders, animated terminal.
+  Output format should be a fancy Terminal decorated ASCII art ball with the fortune inside.
+  You must keep ASCII borders aligned from both sides of the fortune.

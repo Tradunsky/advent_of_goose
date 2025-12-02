@@ -1,0 +1,40 @@
+name: Daily Fortune Workflow
+run-name: ${{ github.actor }} is generating a daily fortune 🚀
+cron: '0 12 * * *'
+
+env:
+   OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+
+jobs:
+  Generate-Daily-Fortune:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ github.repository }}
+          path: day1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install goose CLI
+        run: |
+           mkdir -p /home/runner/.local/bin
+           curl -fsSL https://github.com/block/goose/releases/download/stable/download_cli.sh \
+           | CONFIGURE=false GOOSE_BIN_DIR=/home/runner/.local/bin bash
+           echo "/home/runner/.local/bin" >> $GITHUB_PATH
+
+      - name: Configure goose
+        run: |
+           mkdir -p ~/.config/goose
+           cat <<EOF > ~/.config/goose/config.yaml
+           GOOSE_PROVIDER: openrouter
+           GOOSE_MODEL: anthropic/claude-sonnet-4
+           keyring: false
+           EOF
+    
+      - name: Run Daily Fortune Script
+        run: |
+          cd day1
+          ./madame_zelda.sh funny seasonal
+          cat funny_seasonal.md
+        
