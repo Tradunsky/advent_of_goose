@@ -15,8 +15,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v5
         with:
-          repository: ${{ github.repository }}
-          path: day1
+          repository: ${{ github.repository }}          
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install goose CLI
@@ -36,8 +35,9 @@ jobs:
            EOF
     
       - name: Run Daily Fortune Script
-        run: |
-          ls -la
+        working-directory: ./day1
+        run: |          
+          ls -la          
           ./madame_zelda.sh funny seasonal
           cat funny_seasonal.md
         
