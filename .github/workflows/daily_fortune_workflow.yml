@@ -37,7 +37,7 @@ jobs:
     
       - name: Run Daily Fortune Script
         run: |
-          cd day1
+          ls -la
           ./madame_zelda.sh funny seasonal
           cat funny_seasonal.md
         
